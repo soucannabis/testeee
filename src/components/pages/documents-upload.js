@@ -136,6 +136,10 @@ const FileUploadComponent = () => {
 
           await docuseal()
 
+          setButtonMsg(true)
+
+          await docuseal()
+
         setRgProof(true);
         setIsLoading(false);
 
