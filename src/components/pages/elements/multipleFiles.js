@@ -166,7 +166,7 @@ function MultipleFiles() {
                   <img class="animated-icon" width="40" src="/icons/data-cloud.gif" /> Carregando documento... <img class="animated-icon" width="40" src="/icons/data-cloud.gif" />
                 </span>
               )}
-              {!isLoadingButton && !attachment && <span>Anexar outros arquivos</span>}
+              {!isLoadingButton && !attachment && <span>Anexar arquivo</span>}
               {!isLoadingButton && attachment && !selectInfo && <span>Anexar mais um arquivo</span>}
               {selectInfo && attachment && <span>Clique abaixo para continuar seu cadastro</span>}
             </Form.Label>
