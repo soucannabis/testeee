@@ -191,23 +191,6 @@ const AssociateSignUp = () => {
         }
       }
 
-      if (!realCPF(validateCPF)) {
-        emptyFields.push("cpf");
-        setCpfNotValid(true);
-        setTimeout(() => {
-          setCpfNotValid(false);
-        }, 6000);
-      }
-    }
-
-    const validateRg = formData.rg_associate;
-    if (validateRg && validateRg.includes("_")) {
-      setRgError(true);
-      setTimeout(() => {
-        setRgError(false);
-      }, 6000);
-
-      emptyFields.push("rg");
     }
 
     setFieldsError(true);
@@ -228,7 +211,7 @@ const AssociateSignUp = () => {
       const searchUser = await apiRequest("/api/directus/search", { query: "/items/Users?filter[responsable_code][_eq]=" + codeUser }, "POST")
 
       await apiRequest("/api/directus/update", { userId: user.id, formData: { responsible_for: searchUser.user_code } }, "POST")
-      await apiRequest("/api/directus/update", { userId: user.id, formData: { reason_treatment: null, reason_treatment_text: null } }, "POST")
+      //await apiRequest("/api/directus/update", { userId: user.id, formData: { reason_treatment: null, reason_treatment_text: null } }, "POST")
       
       window.location.assign("/documentos");
     }
@@ -275,7 +258,9 @@ const AssociateSignUp = () => {
             <label className="form-label" htmlFor="birthday_associate">
               Data de nascimento
             </label>
-            <input class="form-input input-login" onChange={handleChangeInput} onBlur={handleChangeInput} value={formData.birthday_associate} type="date" id="birthday_associate" name="birthday_associate"></input>
+            <InputMask mask="99/99/9999" onChange={handleChangeInput} onBlur={handleChangeInput} value={formData.birthday_associate} type="text" id="birthday_associate" name="birthday_associate">        
+              {inputProps =>  <input placeholder="__/__/____" class="form-input input-login" {...inputProps}  />}
+            </InputMask>
           </div>
 
           <div className="mb-3">
@@ -305,9 +290,7 @@ const AssociateSignUp = () => {
             <label className="form-label" htmlFor="rg_associate">
               RG <LabelInfo message="Necessário para a geração doo termo de responsabilidade do associado" id="rg" />
             </label>
-            <InputMask mask="9.999.999" value={formData.rg_associate} onChange={handleChangeInput} onBlur={handleChangeInput}>
-              {inputProps => <input placeholder="Digite o RG do paciente" type="text" value={formData.rg_associate} id="rg_associate" name="rg_associate" className="form-input" {...inputProps} />}
-            </InputMask>
+            <input placeholder="Digite seu RG" type="text" value={formData.rg_associate} id="rg_associate" name="rg_associate" className="form-input" onChange={handleChangeInput} />
           </div>
 
           <div className="mb-3">
